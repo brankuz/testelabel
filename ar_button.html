@@ -7,19 +7,22 @@
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
   </head>
   <body style="margin: 0; overflow: hidden">
-    
-    <!-- BOTÃO DE INICIAR -->
-    <button id="startButton" style="position: absolute; z-index: 1; top: 20px; left: 20px;">Iniciar AR</button>
 
-    <!-- CENA AR FICA OCULTA ATÉ CLICAR -->
+    <!-- BOTÃO DE INICIAR -->
+    <button id="startButton" style="position: absolute; z-index: 1; top: 20px; left: 20px; padding: 10px 20px; font-size: 16px;">Iniciar AR</button>
+
+    <!-- CENA AR -->
     <a-scene id="ar-scene" embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" style="display: none;">
+      <!-- TEXTO FLUTUANDO EM RA -->
       <a-entity 
         position="0 1.6 -2"
         text="value: Bem-vindo ao Labirinto!; align: center; color: #FFFFFF; width: 4"
       ></a-entity>
+      
       <a-entity camera></a-entity>
     </a-scene>
 
+    <!-- SCRIPT PARA ATIVAR CENA -->
     <script>
       const button = document.getElementById("startButton");
       const scene = document.getElementById("ar-scene");
@@ -29,6 +32,6 @@
         button.style.display = "none";
       });
     </script>
-    
+
   </body>
 </html>

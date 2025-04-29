@@ -2,29 +2,40 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport"     content="width=device-width, initial-scale=1.0"/>
   <title>Labirinto Hipertextual</title>
   <style>
+    /* Estilos gerais */
     body {
       margin: 0; padding: 0;
-      background: black; color: white;
-      font-family: monospace; overflow-x: hidden;
+      background: black;
+      color: white;
+      font-family: monospace;
+      overflow: hidden;
       position: relative;
+      height: 100vh;
     }
+    /* DIV que contém o texto */
+    #content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 5% auto;
+      padding: 0 20px;
+      font-size: 1.4rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    /* Fundo que vai aparecer */
     #background {
-      position: fixed; top: 0; left: 0;
+      position: fixed;
+      top: 0; left: 0;
       width: 100vw; height: 100vh;
       background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80")
                   center/cover no-repeat;
-      opacity: 0; transition: opacity 2s ease;
-      z-index: 0;
-    }
-    #content {
-      position: relative; z-index: 1;
-      max-width: 800px; margin: 5% auto;
-      font-size: 1.3rem; line-height: 1.6;
-      padding: 0 10px;
-      white-space: pre-wrap; /* preserva quebras de linha */
+      opacity: 0;
+      transition: opacity 2s ease;
+      z-index: 1;
     }
   </style>
 </head>
@@ -33,36 +44,42 @@
   <div id="content"></div>
 
   <script>
-    // Texto completo (adicione quebras de linha com \n)
-    const texto = 
-`Era uma vez um lugar onde os caminhos não eram o que pareciam.
+    // 1) Texto completo
+    const texto = `
+Era uma vez um lugar onde os caminhos não eram o que pareciam.
 Cada escolha, uma direção.
 Cada direção, uma revelação.
 Você está pronto?
-Então entre e descubra...`;
+Então entre e descubra os segredos ocultos nos corredores.
+Cada passo ecoa memórias.
+Cada sombra revela um mistério.
+A aventura começa agora...
+    `.trim();
 
+    // 2) Referências
     const content = document.getElementById("content");
     const bg = document.getElementById("background");
     let i = 0;
 
+    // 3) Função de digitação
     function digitar() {
       if (i < texto.length) {
         content.innerHTML += texto[i];
         i++;
 
-        // Quando passar da metade, começa a revelar o fundo
+        // Quando passar de 50% do texto, revela o fundo
         if (i >= texto.length / 2) {
-          // Opacidade proporcional (0 a 1)
-          const opa = (i - texto.length/2) / (texto.length/2);
-          bg.style.opacity = Math.min(opa, 1);
+          // Proporção de 0 a 1
+          const proporcao = (i - texto.length/2) / (texto.length/2);
+          bg.style.opacity = Math.min(proporcao, 1);
         }
 
-        // 100ms por letra = mais lento
-        setTimeout(digitar, 100);
+        // Digitação mais lenta: 150ms por letra
+        setTimeout(digitar, 150);
       }
     }
 
-    // Inicia a digitação assim que o HTML carrega
+    // 4) Inicia no carregamento
     window.addEventListener("load", digitar);
   </script>
 </body>

@@ -1,86 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"     content="width=device-width, initial-scale=1.0"/>
-  <title>Labirinto Hipertextual</title>
-  <style>
-    /* Estilos gerais */
-    body {
-      margin: 0; padding: 0;
-      background: black;
-      color: white;
-      font-family: monospace;
-      overflow: hidden;
-      position: relative;
-      height: 100vh;
-    }
-    /* DIV que contém o texto */
-    #content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      margin: 5% auto;
-      padding: 0 20px;
-      font-size: 1.4rem;
-      line-height: 1.6;
-      white-space: pre-wrap;
-    }
-    /* Fundo que vai aparecer */
-    #background {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80")
-                  center/cover no-repeat;
-      opacity: 0;
-      transition: opacity 2s ease;
-      z-index: 1;
-    }
-  </style>
-</head>
-<body>
-  <div id="background"></div>
-  <div id="content"></div>
-
-  <script>
-    // 1) Texto completo
-    const texto = `
-Era uma vez um lugar onde os caminhos não eram o que pareciam.
-Cada escolha, uma direção.
-Cada direção, uma revelação.
-Você está pronto?
-Então entre e descubra os segredos ocultos nos corredores.
-Cada passo ecoa memórias.
-Cada sombra revela um mistério.
-A aventura começa agora...
-    `.trim();
-
-    // 2) Referências
-    const content = document.getElementById("content");
-    const bg = document.getElementById("background");
-    let i = 0;
-
-    // 3) Função de digitação
-    function digitar() {
-      if (i < texto.length) {
-        content.innerHTML += texto[i];
-        i++;
-
-        // Quando passar de 50% do texto, revela o fundo
-        if (i >= texto.length / 2) {
-          // Proporção de 0 a 1
-          const proporcao = (i - texto.length/2) / (texto.length/2);
-          bg.style.opacity = Math.min(proporcao, 1);
-        }
-
-        // Digitação mais lenta: 150ms por letra
-        setTimeout(digitar, 150);
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Labirinto RA</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.3.2/aframe/build/aframe-ar.min.js"></script>
+    <style>
+      body, html {
+        margin: 0;
+        overflow: hidden;
+        height: 100%;
+        background: black;
       }
-    }
+    </style>
+  </head>
+  <body>
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;"
+    >
+      <!-- Plano para teste -->
+      <a-plane
+        position="0 -0.5 -2"
+        rotation="-90 0 0"
+        width="1"
+        height="1"
+        color="#222222"
+      ></a-plane>
 
-    // 4) Inicia no carregamento
-    window.addEventListener("load", digitar);
-  </script>
-</body>
+      <!-- Texto flutuante -->
+      <a-entity
+        position="0 0 -1"
+        text="value: Bem-vindo ao Labirinto!; align: center; color: #FFFFFF; width: 4"
+      ></a-entity>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
 </html>

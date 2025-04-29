@@ -1,0 +1,34 @@
+body.texto {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: black;
+  color: white;
+  font-family: monospace;
+  overflow: hidden;
+  position: relative;
+}
+
+.text-container {
+  width: 60%;
+  margin: 5% auto;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  z-index: 2;
+  position: relative;
+}
+
+body.texto::before {
+  content: "";
+  background-image: url("imagem.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}

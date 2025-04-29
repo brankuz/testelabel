@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AR Labirinto</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/3.3.2/aframe/build/aframe-ar.js"></script>
+    <style> body { margin: 0; overflow: hidden; } </style>
+  </head>
+  <body>
+    <a-scene
+      embedded
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    >
+      <!-- Defina sua imagem como marcador NFT -->
+      <a-nft
+        type="nft"
+        url="https://raw.githubusercontent.com/brankuz/testelabel/main/images/210203934-37d5b26d-6135-458f-a39d-e11983a2b407.jpg"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5"
+      >
+        <!-- Aqui colocamos o texto flutuante -->
+        <a-entity
+          position="0 0 0"
+          rotation="-90 0 0"
+          text="value: Bem-vindo ao Labirinto!; align: center; color: #FFFFFF; width: 4"
+        >
+        </a-entity>
+      </a-nft>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>

@@ -1,15 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Texto</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Labirinto Hipertextual</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: monospace;
+      font-size: 1.2rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #content {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      z-index: 1;
+      position: relative;
+    }
+
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-image: url("fundo.jpg");
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s linear;
+      z-index: 0;
+    }
+  </style>
 </head>
-<body class="texto">
-  <div class="text-container">
-    <p id="typed-text"></p>
-  </div>
-  <script src="script.js"></script>
+<body>
+  <div id="background"></div>
+  <div id="content"></div>
+
+  <script>
+    const texto = `
+      Você acorda em um corredor escuro.
+      Passos ecoam ao longe.
+      Um som distante parece familiar.
+      Cada letra na parede brilha por um segundo.
+      Você caminha sem saber onde vai.
+      Mas algo te puxa adiante.
+      Uma presença.
+      Uma história.
+      Algo escondido atrás da superfície.
+
+      Continue...
+    `.trim();
+
+    const content = document.getElementById("content");
+    const background = document.getElementById("background");
+    let index = 0;
+
+    function digitar() {
+      if (index < texto.length) {
+        content.innerHTML += texto.charAt(index);
+        index++;
+
+        // Quando passar da metade, começa a revelar a imagem
+        if (index > texto.length / 2) {
+          background.style.opacity = Math.min((index - texto.length / 2) / (texto.length / 2), 1);
+        }
+
+        setTimeout(digitar, 50); // velocidade da digitação
+      }
+    }
+
+    digitar();
+  </script>
 </body>
 </html>
